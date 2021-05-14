@@ -239,7 +239,7 @@ function parseData(xml) {
 
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day === 3) break;
-				period.symbol.url         = '/adapter/yr/icons/' + period.symbol.var + '.svg';
+				        period.symbol.url         = '/adapter/yr/icons/' + period.symbol.var + '.svg';
                 period.symbol.name        = _(period.symbol.name);
                 period.windDirection.code = _(period.windDirection.code);
                 period.windDirection.name = _(period.windDirection.name);
@@ -277,7 +277,7 @@ function parseData(xml) {
                         state:               period.symbol.name,
                         temperatureMin:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
                         temperatureMax:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
-                        precipitation:  adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value),
+                        precipitation:       adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value),
                         windDirection:       period.windDirection.code,
                         windSpeed:           adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6,
                         pressure:            parseFloat(period.pressure.value),
@@ -301,8 +301,8 @@ function parseData(xml) {
                     }
 
                     days[day].precipitation  += adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value);
-                    days[day].windSpeed           += adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6;
-                    days[day].pressure            += parseFloat(period.pressure.value);
+                    days[day].windSpeed      += adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6;
+                    days[day].pressure       += parseFloat(period.pressure.value);
                     days[day].count++;
                 }
                 // Set actual temperature
@@ -326,8 +326,7 @@ function parseData(xml) {
                 days[day].precipitation  = Math.round(days[day].precipitation);
                 days[day].windSpeed      = Math.round(days[day].windSpeed * 10) / 10;
                 days[day].pressure       = Math.round(days[day].pressure);
-
-                days[day].date = adapter.formatDate(days[day].date);
+                //days[day].date = adapter.formatDate(days[day].date);
 
                 delete days[day].count;
                 for (const name in days[day]) {
@@ -336,7 +335,7 @@ function parseData(xml) {
                     }
                 }
             }
-                       
+
             adapter.log.debug('data successfully parsed. setting states');
 
             adapter.setState('forecast.info.html',   {val: table, ack: true});
